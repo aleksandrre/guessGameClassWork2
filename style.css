@@ -6,6 +6,7 @@
 .boxContainer {
   display: flex;
   justify-content: center;
+
   gap: 40px;
   background-color: black;
 }
@@ -19,7 +20,7 @@
   align-items: center;
 }
 
-.numberP {
+.boxValue {
   color: white;
   display: none;
 }
