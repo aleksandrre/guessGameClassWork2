@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.boxContainer {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  background-color: black;
+}
+
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.numberP {
+  color: white;
+  display: none;
+}
