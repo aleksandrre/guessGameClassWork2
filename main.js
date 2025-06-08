@@ -3,7 +3,7 @@ const guessedNumberP = document.createElement("p");
 
 const gameContainer = document.querySelector(".gameContainer");
 const message = document.getElementById("message");
-
+const chances = document.getElementById("chances")
 boxContainer.classList.add("boxContainer");
 guessedNumberP.classList.add("guessedNumberP");
 gameContainer.appendChild(boxContainer);
@@ -38,8 +38,6 @@ const createManyBox = (boxQuantity) => {
   }
 };
 
-
-
 let guessedNumber;
 
 const displayGuessedNumberP = () => {
@@ -49,49 +47,57 @@ const displayGuessedNumberP = () => {
 };
 
 let choice = 2;
-
+let isProccessing = true;
 const chooseOneBox = () => {
   allBoxes.forEach((box) => {
     box.addEventListener("click", () => {
+      if (!isProccessing || box.classList.contains("clicked")) {
+        return;
+      }
+
+      box.classList.add("clicked"); // აღვნიშნავთ, რომ უკვე დააჭირეს
+
+      choice--;
       box.querySelector(".boxValue").style.opacity = 1;
+
       if (box.querySelector(".boxValue").textContent == guessedNumber) {
         message.textContent = "Answer Is Right";
+        chances.textContent = `you have ${choice}`;
+        isProccessing = false;
         resetFunction();
       } else {
-        choice-- 
-          if (choice <= 0) {
-          message.textContent = "წააგე ჰეჰე."
-          resetFunction()
-        }else{
+        chances.textContent = `you have ${choice}`;
+        if (choice <= 0) {
+          isProccessing = false;
+          message.textContent = "წააგე ჰეჰე.";
+          resetFunction();
+        } else {
           message.textContent = "Answer Is False but you can do it!";
-    
-
         }
       }
     });
   });
 };
 
-
-
-const mainFunction = () =>{
+chances.textContent = `you have ${choice}`
+const mainFunction = () => {
   createManyBox(3);
   displayGuessedNumberP();
   chooseOneBox();
-  
-}
+};
 
-mainFunction()
+mainFunction();
 
-
-const resetFunction = () =>{ 
- setTimeout(() => {
-  boxContainer.innerHTML="";
-  message.textContent="";
-  guessedNumberP.textContent="";
-  allBoxValues.length=0;
-  allBoxes.lenght=0;
-  choice=2;
-  mainFunction()
- }, 2000);
-}
+const resetFunction = () => {
+  setTimeout(() => {
+    boxContainer.innerHTML = "";
+    message.textContent = "";
+    guessedNumberP.textContent = "";
+    allBoxValues.length = 0;
+    allBoxes.lenght = 0;
+    choice = 2;
+    chances.textContent = `you have ${choice}`
+    isProccessing = true;
+    mainFunction();
+  }, 2000);
+};
